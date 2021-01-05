@@ -1,5 +1,6 @@
 import argparse
 from kernel import FileKernel, ProjectKernel, print_ast
+from checker import Checker
 parser = argparse.ArgumentParser("command line linter interface")
 
 parser.add_argument("--file-ast", dest="filename_ast", action="store", type=str, help='print file ast')
@@ -9,6 +10,8 @@ parser.add_argument("--call-graph", dest="filename_graph", action="store", type=
 parser.add_argument("--function-ast", dest="function_ast", action="store", type=str, help='print function ast (must be used with --file)')
 parser.add_argument("--class-ast", dest="class_ast", action="store", type=str, help='print class ast (must be used with --file)')
 parser.add_argument("--file", dest="filename", action="store", type=str, help='filename for function and class ast search')
+parser.add_argument("--check-file", dest="filename_check", action="store", type=str, help='run checks for file')
+parser.add_argument("--check-folder", dest="folder_check", action="store", type=str, help='run checks for folder')
 
 args = parser.parse_args()
 if args.filename_ast:
@@ -31,5 +34,14 @@ elif args.class_ast:
     kernel = FileKernel(args.filename)
     class_ast = kernel.find_class_ast(args.filename, args.class_ast)
     print_ast(class_ast)
+elif args.filename_check:
+    kernel = FileKernel(args.filename_check)
+    c = Checker()
+    c.run_all_checks([[kernel], [kernel]])
+elif args.folder_check:
+    kernel = ProjectKernel(args.folder_check)
+    c = Checker()
+    c.run_all_checks([[kernel], [kernel]])
+
 
 
