@@ -6,8 +6,8 @@ parser.add_argument("--file-ast", dest="filename_ast", action="store", type=str,
 parser.add_argument("--folder-asts", dest="folder", action="store", type=str, help='print folder asts')
 parser.add_argument("--structure", dest="folder_structure", action="store", type=str, help='print folder structure')
 parser.add_argument("--call-graph", dest="filename_graph", action="store", type=str, help='print call graph')
-parser.add_argument("--function-ast", dest="function_ast", action="store", type=str, help='print function ast (must be used with --filename)')
-parser.add_argument("--class-ast", dest="class_ast", action="store", type=str, help='print class ast (must be used with --filename)')
+parser.add_argument("--function-ast", dest="function_ast", action="store", type=str, help='print function ast (must be used with --file)')
+parser.add_argument("--class-ast", dest="class_ast", action="store", type=str, help='print class ast (must be used with --file)')
 parser.add_argument("--file", dest="filename", action="store", type=str, help='filename for function and class ast search')
 
 args = parser.parse_args()
