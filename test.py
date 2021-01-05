@@ -24,6 +24,7 @@ cl_from_func = get_classes_from_function(tree.children['ctx'])
 tree = kernel.find_function_ast(dir + '1/11/111/first.py', 'bar')
 tree = kernel.find_class_ast(dir + '1/11/111/first.py', 'a')
 graph = kernel.build_call_graph(dir + '1/11/111/first.py')
+kernel.print_call_graph(dir + '1/11/111/first.py')
 
 # test checker for project kernel
 c = Checker()
@@ -48,6 +49,7 @@ cl_from_func = get_classes_from_function(tree.children['ctx'])
 tree = kernel.find_function_ast(dir + '1/11/111/first.py', 'bar')
 tree = kernel.find_class_ast(dir + '1/11/111/first.py', 'A')
 graph = kernel.build_call_graph()
+kernel.print_call_graph()
 
 # test checker for project kernel
 c = Checker()
