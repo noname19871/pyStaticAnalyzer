@@ -1,8 +1,7 @@
 from kernel import ProjectKernel, get_class_methods, get_classes_from_function, get_nested_classes, get_nested_functions, FileKernel
 from checker import Checker
 
-# we use global paths to files, so change it according to absolute path to test project
-dir = '/Users/empire/Desktop/pyStaticAnalyzer/test_linter/'
+dir = 'test_linter/'
 
 kernel = ProjectKernel(dir, ignored={'venv', '.idea', '__pycache__'})
 
