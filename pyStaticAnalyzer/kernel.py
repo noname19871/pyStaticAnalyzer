@@ -1,6 +1,6 @@
-from walker import ProjectGraph
+from pyStaticAnalyzer.walker import ProjectGraph
 import ast
-import astpretty
+from pyStaticAnalyzer.astpretty import pprint
 
 
 class FolderNode:
@@ -21,7 +21,7 @@ class CallNode:
 
 
 def print_ast(ast_node):
-    astpretty.pprint(ast_node)
+    pprint(ast_node)
 
 
 def get_class_methods(class_node):
@@ -232,10 +232,10 @@ class FileKernel:
         return res
 
     def print_file_ast(self, filename):
-        astpretty.pprint(self.__file_tree[filename].ast)
+        pprint(self.__file_tree[filename].ast)
 
     def print_all_asts(self):
-        astpretty.pprint(self.__file_tree[self.__path].ast)
+        pprint(self.__file_tree[self.__path].ast)
 
     def print_structure(self):
         print(self.__path)
@@ -498,7 +498,7 @@ class ProjectKernel:
         return res
 
     def print_file_ast(self, filename):
-        astpretty.pprint(self.__folder_tree[filename].ast)
+        pprint(self.__folder_tree[filename].ast)
 
     def print_folder_asts(self, folder):
         used = set()

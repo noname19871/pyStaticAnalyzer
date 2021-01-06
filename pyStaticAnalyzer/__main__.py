@@ -1,6 +1,6 @@
 import argparse
-from kernel import FileKernel, ProjectKernel, print_ast
-from checker import Checker
+from pyStaticAnalyzer.kernel import FileKernel, ProjectKernel, print_ast
+from pyStaticAnalyzer.checker import Checker
 parser = argparse.ArgumentParser("command line linter interface")
 
 parser.add_argument("--file-ast", dest="filename_ast", action="store", type=str, help='print file ast')
@@ -10,7 +10,7 @@ parser.add_argument("--call-graph", dest="filename_graph", action="store", type=
 parser.add_argument("--function-ast", dest="function_ast", action="store", type=str, help='print function ast (must '
                                                                                           'be used with --file)')
 parser.add_argument("--class-ast", dest="class_ast", action="store", type=str, help='print class ast (must be used '
-                                                                                    'with --file)') 
+                                                                                    'with --file)')
 parser.add_argument("--file", dest="filename", action="store", type=str, help='filename for function and class ast '
                                                                               'search')
 parser.add_argument("--check-file", dest="filename_check", action="store", type=str, help='run checks for file')
