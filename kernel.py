@@ -331,7 +331,7 @@ class FileKernel:
     def __dfs_call_graph_print(self, used, cur, indent, indent_count):
         if cur.id not in used:
             used.add(cur.id)
-            print(indent + cur.name)
+            print(indent + cur.type + " " + cur.name)
             for child in cur.children:
                 self.__dfs_call_graph_print(used, child, indent + ' ' * indent_count, indent_count)
 
@@ -618,7 +618,7 @@ class ProjectKernel:
     def __dfs_call_graph_print(self, used, cur, indent, indent_count):
         if cur.id not in used:
             used.add(cur.id)
-            print(indent + cur.name)
+            print(indent + cur.type + " " + cur.name)
             for child in cur.children:
                 self.__dfs_call_graph_print(used, child, indent + ' ' * indent_count, indent_count)
 
