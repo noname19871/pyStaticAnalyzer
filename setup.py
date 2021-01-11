@@ -3,14 +3,14 @@ from distutils.core import setup
 setup(
     name='pyStaticAnalyzer',  # How you named your package folder (MyLib)
     packages=['pyStaticAnalyzer'],  # Chose the same as "name"
-    version='0.7',  # Start with a small number and increase it with every change you make
+    version='0.8',  # Start with a small number and increase it with every change you make
     license='MIT',  # Chose a license from here: https://help.github.com/articles/licensing-a-repository
     description='Simple Python Static Analyzer',  # Give a short description about your library
     long_description="Check full documentation in GitHub repository",
     author='Andrew Marchenko',  # Type in your name
     author_email='zeroday343@gmail.com',  # Type in your E-Mail
     url='https://github.com/noname19871/pyStaticAnalyzer',  # Provide either the link to your github or to your website
-    download_url='https://github.com/noname19871/pyStaticAnalyzer/archive/v0.7.tar.gz',  # I explain this later on
+    download_url='https://github.com/noname19871/pyStaticAnalyzer/archive/v0.8.tar.gz',  # I explain this later on
     keywords=['Static Analysis', 'AST', 'Parser', 'Checker'],  # Keywords that define your package best
     classifiers=[
         'Development Status :: 3 - Alpha',  # Chose either "3 - Alpha", "4 - Beta" or "5 - Production/Stable" as the

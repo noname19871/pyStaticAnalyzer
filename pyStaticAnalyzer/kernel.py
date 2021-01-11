@@ -100,7 +100,7 @@ class FileKernel:
 
     @property
     def get_structure(self):
-        return {self.__path : []}
+        return {self.__path: []}
 
     def get_source_code(self, filename):
         return self.__sources[filename]
@@ -274,7 +274,7 @@ class FileKernel:
 
             self.__find_calls(child, res)
 
-    def inspect_func_ast(self, graph, imports, filename, func_ast):
+    def __inspect_func_ast(self, graph, imports, filename, func_ast):
         calls = []
         self.__find_calls(func_ast, calls)
         for call in calls:
@@ -294,7 +294,7 @@ class FileKernel:
                     node = CallNode(self.__call_graph_id, call.func.id, "function")
                     graph.children.append(node)
                     func_ast = self.find_function_ast(filename, call.func.id)
-                    self.inspect_func_ast(node, imports, filename, func_ast)
+                    self.__inspect_func_ast(node, imports, filename, func_ast)
             elif isinstance(call.func, ast.Attribute):
                 if call.func.attr not in self.__file_tree[filename].children.keys():
                     self.__call_graph_id += 1
@@ -304,7 +304,7 @@ class FileKernel:
                     node = CallNode(self.__call_graph_id, call.func.attr, "method")
                     graph.children.append(node)
                     func_ast = self.find_function_ast(filename, call.func.attr)
-                    self.inspect_func_ast(node, imports, filename, func_ast)
+                    self.__inspect_func_ast(node, imports, filename, func_ast)
 
     def build_call_graph(self):
         file_ast = self.__file_tree[self.__path].ast
@@ -329,7 +329,7 @@ class FileKernel:
                     node = CallNode(self.__call_graph_id, call.func.id, "function")
                     graph.children.append(node)
                     func_ast = self.find_function_ast(self.__path, call.func.id)
-                    self.inspect_func_ast(node, imports, self.__path, func_ast)
+                    self.__inspect_func_ast(node, imports, self.__path, func_ast)
             elif isinstance(call.func, ast.Attribute):
                 if call.func.attr not in self.__file_tree[self.__path].children.keys():
                     self.__call_graph_id += 1
@@ -339,7 +339,7 @@ class FileKernel:
                     node = CallNode(self.__call_graph_id, call.func.attr, "method")
                     graph.children.append(node)
                     func_ast = self.find_function_ast(self.__path, call.func.attr)
-                    self.inspect_func_ast(node, imports, self.__path, func_ast)
+                    self.__inspect_func_ast(node, imports, self.__path, func_ast)
         return graph
 
     def __dfs_call_graph_print(self, used, cur, indent, indent_count):
@@ -577,7 +577,7 @@ class ProjectKernel:
 
             self.__find_calls(child, res)
 
-    def inspect_func_ast(self, graph, imports, filename, func_ast):
+    def __inspect_func_ast(self, graph, imports, filename, func_ast):
         calls = []
         self.__find_calls(func_ast, calls)
         for call in calls:
@@ -596,7 +596,7 @@ class ProjectKernel:
                     node = CallNode(self.__call_graph_id, call.func.id, "function")
                     graph.children.append(node)
                     func_ast = self.find_function_ast(filename, call.func.id)
-                    self.inspect_func_ast(node, imports, filename, func_ast)
+                    self.__inspect_func_ast(node, imports, filename, func_ast)
             elif isinstance(call.func, ast.Attribute):
                 if call.func.attr not in self.__folder_tree[filename].children.keys():
                     self.__call_graph_id += 1
@@ -606,7 +606,7 @@ class ProjectKernel:
                     node = CallNode(self.__call_graph_id, call.func.attr, "method")
                     graph.children.append(node)
                     func_ast = self.find_function_ast(filename, call.func.attr)
-                    self.inspect_func_ast(node, imports, filename, func_ast)
+                    self.__inspect_func_ast(node, imports, filename, func_ast)
 
     def build_call_graph(self, filename):
         file_ast = self.__folder_tree[filename].ast
@@ -630,7 +630,7 @@ class ProjectKernel:
                     node = CallNode(self.__call_graph_id, call.func.id, "function")
                     graph.children.append(node)
                     func_ast = self.find_function_ast(filename, call.func.id)
-                    self.inspect_func_ast(node, imports, filename, func_ast)
+                    self.__inspect_func_ast(node, imports, filename, func_ast)
             elif isinstance(call.func, ast.Attribute):
                 if call.func.attr not in self.__folder_tree[filename].children.keys():
                     self.__call_graph_id += 1
@@ -640,7 +640,7 @@ class ProjectKernel:
                     node = CallNode(self.__call_graph_id, call.func.attr, "method")
                     graph.children.append(node)
                     func_ast = self.find_function_ast(filename, call.func.attr)
-                    self.inspect_func_ast(node, imports, filename, func_ast)
+                    self.__inspect_func_ast(node, imports, filename, func_ast)
         return graph
 
     def __dfs_call_graph_print(self, used, cur, indent, indent_count):
