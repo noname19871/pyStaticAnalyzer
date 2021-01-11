@@ -1,3 +1,6 @@
+# This code is a little bit modified part of https://github.com/asottile/astpretty
+# Еhe entire source was taken to avoid installing dependencies when building the project
+
 import ast
 import contextlib
 from typing import Any
@@ -5,7 +8,6 @@ from typing import Generator
 from typing import Tuple
 from typing import Type
 from typing import Union
-
 
 AST: Tuple[Type[Any], ...] = (ast.AST,)
 expr_context: Tuple[Type[Any], ...] = (ast.expr_context,)

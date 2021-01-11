@@ -28,6 +28,7 @@ class A:
 def tmp(ABC, b):
     bar()
     x = 2
+    print(1)
     pass
 
 

@@ -283,6 +283,9 @@ class FileKernel:
                     self.__call_graph_id += 1
                     graph.children.append(
                         CallNode(self.__call_graph_id, call.func.id, "imported_function", imported_from=imports[call.func.id]))
+                elif call.func.id not in self.__file_tree[filename].children.keys():
+                    self.__call_graph_id += 1
+                    graph.children.append(CallNode(self.__call_graph_id, call.func.id, "function"))
                 elif self.__file_tree[filename].children[call.func.id].type == "class":
                     self.__call_graph_id += 1
                     graph.children.append(CallNode(self.__call_graph_id, call.func.id, "class"))
@@ -293,11 +296,15 @@ class FileKernel:
                     func_ast = self.find_function_ast(filename, call.func.id)
                     self.inspect_func_ast(node, imports, filename, func_ast)
             elif isinstance(call.func, ast.Attribute):
-                self.__call_graph_id += 1
-                node = CallNode(self.__call_graph_id, call.func.attr, "method")
-                graph.children.append(node)
-                func_ast = self.find_function_ast(filename, call.func.attr)
-                self.inspect_func_ast(node, imports, filename, func_ast)
+                if call.func.attr not in self.__file_tree[filename].children.keys():
+                    self.__call_graph_id += 1
+                    graph.children.append(CallNode(self.__call_graph_id, call.func.attr, "method"))
+                else:
+                    self.__call_graph_id += 1
+                    node = CallNode(self.__call_graph_id, call.func.attr, "method")
+                    graph.children.append(node)
+                    func_ast = self.find_function_ast(filename, call.func.attr)
+                    self.inspect_func_ast(node, imports, filename, func_ast)
 
     def build_call_graph(self):
         file_ast = self.__file_tree[self.__path].ast
@@ -311,6 +318,9 @@ class FileKernel:
                     self.__call_graph_id += 1
                     graph.children.append(
                         CallNode(self.__call_graph_id, call.func.id, "imported_function", imported_from=imports[call.func.id]))
+                elif call.func.id not in self.__file_tree[self.__path].children.keys():
+                    self.__call_graph_id += 1
+                    graph.children.append(CallNode(self.__call_graph_id, call.func.id, "function"))
                 elif self.__file_tree[self.__path].children[call.func.id].type == "class":
                     self.__call_graph_id += 1
                     graph.children.append(CallNode(self.__call_graph_id, call.func.id, "class"))
@@ -321,11 +331,15 @@ class FileKernel:
                     func_ast = self.find_function_ast(self.__path, call.func.id)
                     self.inspect_func_ast(node, imports, self.__path, func_ast)
             elif isinstance(call.func, ast.Attribute):
-                self.__call_graph_id += 1
-                node = CallNode(self.__call_graph_id, call.func.attr, "method")
-                graph.children.append(node)
-                func_ast = self.find_function_ast(self.__path, call.func.attr)
-                self.inspect_func_ast(node, imports, self.__path, func_ast)
+                if call.func.attr not in self.__file_tree[self.__path].children.keys():
+                    self.__call_graph_id += 1
+                    graph.children.append(CallNode(self.__call_graph_id, call.func.attr, "method"))
+                else:
+                    self.__call_graph_id += 1
+                    node = CallNode(self.__call_graph_id, call.func.attr, "method")
+                    graph.children.append(node)
+                    func_ast = self.find_function_ast(self.__path, call.func.attr)
+                    self.inspect_func_ast(node, imports, self.__path, func_ast)
         return graph
 
     def __dfs_call_graph_print(self, used, cur, indent, indent_count):
@@ -571,6 +585,9 @@ class ProjectKernel:
                 if call.func.id in imports.keys():
                     self.__call_graph_id += 1
                     graph.children.append(CallNode(self.__call_graph_id, call.func.id, "imported_function", imported_from=imports[call.func.id]))
+                elif call.func.id not in self.__folder_tree[filename].children.keys():
+                    self.__call_graph_id += 1
+                    graph.children.append(CallNode(self.__call_graph_id, call.func.id, "function"))
                 elif self.__folder_tree[filename].children[call.func.id].type == "class":
                     self.__call_graph_id += 1
                     graph.children.append(CallNode(self.__call_graph_id, call.func.id, "class"))
@@ -581,11 +598,15 @@ class ProjectKernel:
                     func_ast = self.find_function_ast(filename, call.func.id)
                     self.inspect_func_ast(node, imports, filename, func_ast)
             elif isinstance(call.func, ast.Attribute):
-                self.__call_graph_id += 1
-                node = CallNode(self.__call_graph_id, call.func.attr, "method")
-                graph.children.append(node)
-                func_ast = self.find_function_ast(filename, call.func.attr)
-                self.inspect_func_ast(node, imports, filename, func_ast)
+                if call.func.attr not in self.__folder_tree[filename].children.keys():
+                    self.__call_graph_id += 1
+                    graph.children.append(CallNode(self.__call_graph_id, call.func.attr, "method"))
+                else:
+                    self.__call_graph_id += 1
+                    node = CallNode(self.__call_graph_id, call.func.attr, "method")
+                    graph.children.append(node)
+                    func_ast = self.find_function_ast(filename, call.func.attr)
+                    self.inspect_func_ast(node, imports, filename, func_ast)
 
     def build_call_graph(self, filename):
         file_ast = self.__folder_tree[filename].ast
@@ -598,6 +619,9 @@ class ProjectKernel:
                 if call.func.id in imports.keys():
                     self.__call_graph_id += 1
                     graph.children.append(CallNode(self.__call_graph_id, call.func.id, "imported_function", imported_from=imports[call.func.id]))
+                elif call.func.id not in self.__folder_tree[filename].children.keys():
+                    self.__call_graph_id += 1
+                    graph.children.append(CallNode(self.__call_graph_id, call.func.id, "function"))
                 elif self.__folder_tree[filename].children[call.func.id].type == "class":
                     self.__call_graph_id += 1
                     graph.children.append(CallNode(self.__call_graph_id, call.func.id, "class"))
@@ -608,11 +632,15 @@ class ProjectKernel:
                     func_ast = self.find_function_ast(filename, call.func.id)
                     self.inspect_func_ast(node, imports, filename, func_ast)
             elif isinstance(call.func, ast.Attribute):
-                self.__call_graph_id += 1
-                node = CallNode(self.__call_graph_id, call.func.attr, "method")
-                graph.children.append(node)
-                func_ast = self.find_function_ast(filename, call.func.attr)
-                self.inspect_func_ast(node, imports, filename, func_ast)
+                if call.func.attr not in self.__folder_tree[filename].children.keys():
+                    self.__call_graph_id += 1
+                    graph.children.append(CallNode(self.__call_graph_id, call.func.attr, "method"))
+                else:
+                    self.__call_graph_id += 1
+                    node = CallNode(self.__call_graph_id, call.func.attr, "method")
+                    graph.children.append(node)
+                    func_ast = self.find_function_ast(filename, call.func.attr)
+                    self.inspect_func_ast(node, imports, filename, func_ast)
         return graph
 
     def __dfs_call_graph_print(self, used, cur, indent, indent_count):

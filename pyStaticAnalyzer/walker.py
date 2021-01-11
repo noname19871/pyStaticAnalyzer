@@ -2,7 +2,9 @@ import os
 
 
 class ProjectGraph:
-    def __init__(self, path, ignored):
+    def __init__(self, path, ignored=None):
+        if ignored is None:
+            ignored = {}
         self.__path = path
         self.__ignored = ignored
         self.__adj = {self.__path: []}
