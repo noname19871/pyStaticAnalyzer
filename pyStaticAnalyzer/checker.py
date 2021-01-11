@@ -117,7 +117,7 @@ def check_bad_names(k, bad_names_list=None):
 
 # pylint C0103
 @add_method(Checker)
-def check_invalid_names(kernel, good_names_list=None, regexs=None):
+def check_invalid_names(k, good_names_list=None, regexs=None):
     if good_names_list is None:
         good_names_list = []
     defaults_regexs = {'argument-rgx': re.compile('[a-z_][a-z0-9_]{2,30}$'),
@@ -130,4 +130,4 @@ def check_invalid_names(kernel, good_names_list=None, regexs=None):
         for key in regexs.keys():
             defaults_regexs[key] = re.compile(regexs[key])
     used = set()
-    dfs_check_invalid_names(kernel, good_names_list, defaults_regexs, k.get_path, used)
+    dfs_check_invalid_names(k, good_names_list, defaults_regexs, k.get_path, used)
