@@ -26,8 +26,8 @@ k.print_call_graph(dir + '1\\11\\111\\first.py')
 
 # test checker for project kernel
 c = checker.Checker()
-c.run_check("check_invalid_names", kernel)
-c.run_all_checks([[kernel, ["tmp"]], [kernel, ["b"]]])
+c.run_check("check_invalid_names", k)
+c.run_all_checks([[k, ["tmp"]], [k, ["b"]]])
 
 k = kernel.FileKernel(dir + '1\\11\\111\\first.py')
 
@@ -51,6 +51,6 @@ k.print_call_graph()
 
 # test checker for project kernel
 c = checker.Checker()
-c.run_check("check_invalid_names", kernel)
-c.run_all_checks([[kernel, ["tmp"]], [kernel, ["b"]]])
+c.run_check("check_invalid_names", k)
+c.run_all_checks([[k, ["tmp"]], [k, ["b"]]])
 
