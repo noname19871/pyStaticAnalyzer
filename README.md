@@ -51,6 +51,8 @@ Attributes:
 
 #### Class CallNode
 
+Represents Node in Call Graph structure.
+
 Arguments:
 * **id** — integer id of the node (integer, required).
 * **name** — string name of the function or class (string, required).
@@ -66,4 +68,105 @@ Attributes:
 
 #### Class FileKernel
 
-Represents Static Analyzer kernel for single File
+Represents Static Analyzer kernel for single file.
+
+Arguments:
+* **path** — path to the file (string, required).
+
+Properties:
+* **get_path** — returns string path to the analyzed file.
+* **get_all_tree** — returns dict with kernel structure. Keys represent names of files/functions/classes, values — FolderNodes.
+* **get_source_codes** — returns dict with sources of project files. Dict keys are paths to files, values — source codes.
+* **get_structure** — returns project graph in format of adjacency matrix. (This property duplicates behavior of the similar ProjectKernel property and it is not really useful here).
+
+Methods:
+* **get_source_code(filename)**
+* **get_file_ast(filename)**
+* **get_file_classes_and_functions(filename)**
+* **find_function_ast(file, name)**
+* **find_class_ast(file, name)**
+* **print_file_ast(filename)**
+* **print_all_asts()**
+* **print_structure()**
+* **build_call_graph()**
+* **print_call_graph(indent_count=4)**
+
+#### Class ProjectKernel
+
+Represents Static Analyzer kernel for python project.
+
+Arguments:
+* **path** — path to the file (string, required).
+* **ignored** - set of folders to be skipped (set of strings, optional, None by default).
+
+Properties:
+* **get_path** — returns string path to the analyzed file.
+* **get_all_tree** — returns dict with kernel structure. Keys represent names of files/functions/classes, values — FolderNodes.
+* **get_source_codes** — returns dict with sources of project files. Dict keys are paths to files, values — source codes.
+* **get_structure** — returns project graph in format of adjacency matrix.
+
+Methods:
+* **get_source_code(filename)**
+* **get_file_ast(filename)**
+* **get_file_classes_and_functions(filename)**
+* **find_function_ast(file, name)**
+* **find_class_ast(file, name)**
+* **print_file_ast(filename)**
+* **print_folder_asts(folder)**
+* **print_all_asts()**
+* **print_structure(indent_count=4)**
+* **print_folder(folder_name, indent_count=4)**
+* **build_call_graph(filename)**
+* **print_call_graph(filename, indent_count=4)**
+
+#### Function print_ast
+
+#### Function get_class_methods
+
+#### Function get_nested_classes
+
+#### Function get_nested_functions
+
+#### Function get_classes_fron_function
+
+#### Function find_imports
+
+### pyStaticAnalyzer.checker
+
+#### Class Checker
+
+Represents class-aggregator for all checks
+
+Methods:
+* **get_all_checks()** — returns names of all checks added to this class.
+* **run_checks(name, \*args)** — run single check by name with given args.
+* **run_all_checks(name, args=None)** — run all checks added to this class. Param args optional, if specified it must be list of lists — one list of params for one check.
+
+#### Decorator add_method
+
+Usage — @add_method(Checker). Must be added to every check function (only to the main check function — additional functions should not be specified with this decorator). NOTE! All main check functions names must be started with "check" prefix.
+
+#### Function check_bad_names
+
+Check function similar to Pylint C0102. Check names in the code to be "good".
+
+Arguments:
+* **k** — kernel to be analyzed (ProjectKernel or FileKernel, required).
+* **bad_names_list** — list of bad names (list of strings, optional, `["foo", "bar", "baz", "toto", "tutu", "tata"]` by default).
+
+#### Function check_invalid_names
+
+Check function similar to Pylint C0103. Check names of different types to be valid (by regexps).
+
+Arguments:
+* **k** — kernel to be analyzed (ProjectKernel or FileKernel, required).
+* **good_names_list** — list of names which always be accepted (list of strings, optional, None by default).
+* **regexs** — dict of regexs to change default regexs. By default this check has 6 regexs:
+    1. `'argument-rgx' : '[a-z_][a-z0-9_]{2,30}$'`
+    2. `'attr-rgx' : '[a-z_][a-z0-9_]{2,30}$'`
+    3. `'class-rgx' : '[A-Z_][a-zA-Z0-9]+$'`
+    4. `'function-rgx' : '[a-z_][a-z0-9_]{2,30}$'`
+    5. `'module-rgx' : '(([a-z_][a-z0-9_]*)|([A-Z][a-zA-Z0-9]+))$'`
+    6. `'variable-rgx' : '[a-z_][a-z0-9_]{2,30}$'`
+ 
+ every single regex (or more) can be changed by adding {key:value} pair to regexs param.
