@@ -38,11 +38,11 @@ class Checker:
                 self.run_check(checks[i], *args[i])
 
 
-def dfs_check_bad_names(kernel, bad_names_list, cur, used):
+def dfs_check_bad_names(k, bad_names_list, cur, used):
     if cur not in used:
         if cur.endswith(".py"):
             messages = []
-            cur_ast = kernel.get_file_ast(cur)
+            cur_ast = k.get_file_ast(cur)
             for node in ast.walk(cur_ast):
                 if isinstance(node, ast.Name) and isinstance(node.ctx, ast.Store) \
                         and node.id in bad_names_list:
@@ -62,15 +62,15 @@ def dfs_check_bad_names(kernel, bad_names_list, cur, used):
                     print(message)
                 print()
         used.add(cur)
-        for child in kernel.get_structure[cur]:
-            dfs_check_bad_names(kernel, bad_names_list, child, used)
+        for child in k.get_structure[cur]:
+            dfs_check_bad_names(k, bad_names_list, child, used)
 
 
-def dfs_check_invalid_names(kernel, good_names_list, regexs, cur, used):
+def dfs_check_invalid_names(k, good_names_list, regexs, cur, used):
     if cur not in used:
         if cur.endswith(".py"):
             messages = []
-            cur_ast = kernel.get_file_ast(cur)
+            cur_ast = k.get_file_ast(cur)
             for node in ast.walk(cur_ast):
                 if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
                     if node.name not in good_names_list and regexs['function-rgx'].match(node.name) is None:
@@ -102,17 +102,17 @@ def dfs_check_invalid_names(kernel, good_names_list, regexs, cur, used):
                     print(message)
                 print()
         used.add(cur)
-        for child in kernel.get_structure[cur]:
-            dfs_check_invalid_names(kernel, good_names_list, regexs, child, used)
+        for child in k.get_structure[cur]:
+            dfs_check_invalid_names(k, good_names_list, regexs, child, used)
 
 
 # pylint C0102
 @add_method(Checker)
-def check_bad_names(kernel, bad_names_list=None):
+def check_bad_names(k, bad_names_list=None):
     if bad_names_list is None:
         bad_names_list = ["foo", "bar", "baz", "toto", "tutu", "tata"]
     used = set()
-    dfs_check_bad_names(kernel, bad_names_list, kernel.get_path, used)
+    dfs_check_bad_names(k, bad_names_list, k.get_path, used)
 
 
 # pylint C0103
@@ -130,4 +130,4 @@ def check_invalid_names(kernel, good_names_list=None, regexs=None):
         for key in regexs.keys():
             defaults_regexs[key] = re.compile(regexs[key])
     used = set()
-    dfs_check_invalid_names(kernel, good_names_list, defaults_regexs, kernel.get_path, used)
+    dfs_check_invalid_names(kernel, good_names_list, defaults_regexs, k.get_path, used)
