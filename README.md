@@ -213,11 +213,11 @@ Arguments:
  
  ### Possible arguments
  
- `--file-ast <YOUR_FILENAME>` — prints abstract syntax tree of file with name YOUR_FILENAME.
- `--folder-asts <YOUR_FOLDERNAME>` — prints abstract syntax trees of all files from folder with name YOUR_FOLDERNAME.
- `--structure <YOUR_FOLDERNAME>` — prints structure of folder with name YOUR_FOLDERNAME.
- `--call-graph <YOUR_FILENAME>` — prints call graph of the file with name YOUR_FILENAME.
- `--function-ast <YOUR_FUNCTIONNAME> --file <YOUR_FILENAME>` — prints abstract syntax tree of the function with name YOUR_FUNCTIONNAME from file YOUR_FILENAME.
- `--class-ast <YOUR_CLASSNAME> --file <YOUR_FILENAME>` — prints abstract syntax tree of the class with name YOUR_CLASSNAME from file YOUR_FILENAME.
- `--check-file <YOUR_FILENAME>` — runs all checks fof file with name YOUR_FILENAME.
- `--check-folder <YOUR_FOLDERNAME>` — runs all checks for folder with name YOUR_FOLDERNAME.
+* `--file-ast <YOUR_FILENAME>` — prints abstract syntax tree of file with name YOUR_FILENAME.
+* `--folder-asts <YOUR_FOLDERNAME>` — prints abstract syntax trees of all files from folder with name YOUR_FOLDERNAME.
+* `--structure <YOUR_FOLDERNAME>` — prints structure of folder with name YOUR_FOLDERNAME.
+* `--call-graph <YOUR_FILENAME>` — prints call graph of the file with name YOUR_FILENAME.
+* `--function-ast <YOUR_FUNCTIONNAME> --file <YOUR_FILENAME>` — prints abstract syntax tree of the function with name YOUR_FUNCTIONNAME from file YOUR_FILENAME.
+* `--class-ast <YOUR_CLASSNAME> --file <YOUR_FILENAME>` — prints abstract syntax tree of the class with name YOUR_CLASSNAME from file YOUR_FILENAME.
+* `--check-file <YOUR_FILENAME>` — runs all checks fof file with name YOUR_FILENAME.
+* `--check-folder <YOUR_FOLDERNAME>` — runs all checks for folder with name YOUR_FOLDERNAME.
