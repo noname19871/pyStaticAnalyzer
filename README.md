@@ -14,6 +14,10 @@ Compatible with Python 3.6+
 
 run `pip install pyStaticAnalyzer` to install last version
 
+## Examples
+
+Run test_ubuntu.py (for Linux and MacOS) or test_windows.py (for Windows) to play with minimal working example.
+
 ## Documentation
 
 ### pyStaticAnalyzer.walker
