@@ -8,6 +8,8 @@ Simple static analyzer for small python projects
 
 pyStaticAnalyzer works on Ubuntu, Windows and MacOS
 
+Compatible with Python 3.6+
+
 ## Installation
 
 run `pip install pyStaticAnalyzer` to install last version
@@ -80,16 +82,16 @@ Properties:
 * **get_structure** — returns project graph in format of adjacency matrix. (This property duplicates behavior of the similar ProjectKernel property and it is not really useful here).
 
 Methods:
-* **get_source_code(filename)**
-* **get_file_ast(filename)**
-* **get_file_classes_and_functions(filename)**
-* **find_function_ast(file, name)**
-* **find_class_ast(file, name)**
-* **print_file_ast(filename)**
-* **print_all_asts()**
-* **print_structure()**
-* **build_call_graph()**
-* **print_call_graph(indent_count=4)**
+* **get_source_code(filename)** — returns source code of the file (in FileKernel it works only for source file).
+* **get_file_ast(filename)** — return abstract syntax tree of the file (in Filekernel it also works only for source file).
+* **get_file_classes_and_functions(filename)** — returns all classes and function defined in file in format of dict with string keys (functions and classes names) and FolderNode values.
+* **find_function_ast(file, name)** — returns abstract syntax tree of function "name" from file with name "file".
+* **find_class_ast(file, name)** — returns abstract syntax tree of class "name" from file with name "file".
+* **print_file_ast(filename)** — pretty prints abstract syntax tree of the file (in FileKernel it works only for source file).
+* **print_all_asts()** — pretty prints abstract syntax trees of all files in the project.
+* **print_structure()** — print project structure (in FileKernel — only source file name).
+* **build_call_graph()** — returns call graph of given file. Call graph returns as CallNode with type main, which contains children — functions and classes called in the global scope of the file (reptresented by CallNodes). Each of them also contains children and so on. Call graph recognizes imports from other files (and give imported functions type "imported_function"), class initialisation (with type "class), class method calls (with type "method") and common function (with type "function"). At this moment graph construction does not continue in class initializations and imports.
+* **print_call_graph(indent_count=4)** — builds and prints call graph. Param indent_count defines indents between nesting levels.
 
 #### Class ProjectKernel
 
@@ -106,30 +108,60 @@ Properties:
 * **get_structure** — returns project graph in format of adjacency matrix.
 
 Methods:
-* **get_source_code(filename)**
-* **get_file_ast(filename)**
-* **get_file_classes_and_functions(filename)**
-* **find_function_ast(file, name)**
-* **find_class_ast(file, name)**
-* **print_file_ast(filename)**
-* **print_folder_asts(folder)**
-* **print_all_asts()**
-* **print_structure(indent_count=4)**
-* **print_folder(folder_name, indent_count=4)**
-* **build_call_graph(filename)**
-* **print_call_graph(filename, indent_count=4)**
+* **get_source_code(filename)** — returns source code of the file.
+* **get_file_ast(filename)** — return abstract syntax tree of the file.
+* **get_file_classes_and_functions(filename)** returns all classes and function defined in file in format of dict with string keys (functions and classes names) and FolderNode values.
+* **find_function_ast(file, name)** — returns abstract syntax tree of function "name" from file with name "file".
+* **find_class_ast(file, name)** — returns abstract syntax tree of class "name" from file with name "file".
+* **print_file_ast(filename)** — pretty prints abstract syntax tree of the file.
+* **print_folder_asts(folder)** — pretty prints all files abstract syntax trees from subfolder of the project.
+* **print_all_asts()** — pretty prints abstract syntax trees of all files in the project.
+* **print_structure(indent_count=4)** — prints project structure. Param indent_count defines indents between nesting levels.
+* **print_folder(folder_name, indent_count=4)** — prints subfolder structure. Param indent_count defines indents between nesting levels.
+* **build_call_graph()** — returns call graph of given file. Call graph returns as CallNode with type main, which contains children — functions and classes called in the global scope of the file (reptresented by CallNodes). Each of them also contains children and so on. Call graph recognizes imports from other files (and give imported functions type "imported_function"), class initialisation (with type "class), class method calls (with type "method") and common function (with type "function"). At this moment graph construction does not continue in class initializations and imports.
+* **print_call_graph(indent_count=4)** — builds and prints call graph. Param indent_count defines indents between nesting levels.
 
 #### Function print_ast
 
+Pretty prints given abstract syntax tree.
+
+Arguments:
+* **ast** — abstract syntax tree
+
 #### Function get_class_methods
+
+Returns all class methods in format of dict with string keys — methods names and corresponding FolderNode values.
+
+Arguments:
+* **class_node** — FolderNode of the class.
 
 #### Function get_nested_classes
 
+Returns all nested classes from class in format of dict with string keys — classes names and corresponding FolderNode values.
+
+Arguments:
+* **class_node** — FolderNode of the class.
+
 #### Function get_nested_functions
 
-#### Function get_classes_fron_function
+Returns all nested functions from function in format of dict with string keys — function names and corresponding FolderNode values.
+
+Arguments:
+* **func_node** — FolderNode of the function.
+
+#### Function get_classes_from_function
+
+Returns all classes from function in format of dict with string keys — classes names and corresponding FolderNode values.
+
+Arguments:
+* **func_node** — FolderNode of the function.
 
 #### Function find_imports
+
+returns names of imported modules and functions import from it in format of dict with string keys — function names and string values — modules names.
+
+Arguments:
+* **node** — abstract syntax tree of the file.
 
 ### pyStaticAnalyzer.checker
 
